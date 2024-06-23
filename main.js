@@ -62,19 +62,29 @@ function playRound(humanChoice, computerChoice) {
 }
 
 function checkResult() {
-  const body = document.body;
+  const results = document.querySelector(".results");
+  results.innerHTML = ""; // Clear previous results
+  const computerScoreElement = document.createElement("div");
+  computerScoreElement.classList.add("score");
+  computerScoreElement.textContent = "Computer score is " + computerScore;
+  
+  const humanScoreElement = document.createElement("div");
+  humanScoreElement.classList.add("score");
+  humanScoreElement.textContent = "Human score is " + humanScore;
 
-  body.append("Computer score is " + computerScore);
-  body.append(document.createElement("br"));
-  body.append("Human score is " + humanScore);
-  body.append(document.createElement("br"));
+  results.appendChild(computerScoreElement);
+  results.appendChild(humanScoreElement);
+
   if (humanScore >= maxScore || computerScore >= maxScore) {
+    const finalResultElement = document.createElement("div");
+    finalResultElement.classList.add("final-result");
     if (computerScore > humanScore) {
-      body.append("Computer won! Computer score is " + computerScore);
+      finalResultElement.textContent = "Computer won! Computer score is " + computerScore;
     } else if (computerScore < humanScore) {
-      body.append("Human won! Human score is " + humanScore);
+      finalResultElement.textContent = "Human won! Human score is " + humanScore;
     } else {
-      body.append("It's a tie.");
+      finalResultElement.textContent = "It's a tie.";
     }
+    results.appendChild(finalResultElement);
   }
 }
